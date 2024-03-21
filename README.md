@@ -1,16 +1,15 @@
-# Javalin example app
+## Javalin example app
 
-[//]: # ([![Actions Status]&#40;https://github.com/gpiento/hexlet-javalin/actions/workflows/hexlet-check.yml/badge.svg&#41;]&#40;https://github.com/gpiento/hexlet-javalin/actions&#41;)
 [![Java CI](https://github.com/gpiento/hexlet-javalin/actions/workflows/build.yml/badge.svg)](https://github.com/gpiento/hexlet-javalin/actions/workflows/build.yml)
 
 Demo: https://java-javalin-example.hexlet.app
 
-## Requirements
+### Requirements
 
 * Java 20
 * Gradle 8.6
 
-## Usage
+### Usage
 
 ```bash
 make install
