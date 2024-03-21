@@ -1,5 +1,6 @@
 # Javalin example app
 
+[//]: # ([![Actions Status]&#40;https://github.com/gpiento/hexlet-javalin/actions/workflows/hexlet-check.yml/badge.svg&#41;]&#40;https://github.com/gpiento/hexlet-javalin/actions&#41;)
 [![Java CI](https://github.com/gpiento/hexlet-javalin/actions/workflows/build.yml/badge.svg)](https://github.com/gpiento/hexlet-javalin/actions/workflows/build.yml)
 
 Demo: https://java-javalin-example.hexlet.app
