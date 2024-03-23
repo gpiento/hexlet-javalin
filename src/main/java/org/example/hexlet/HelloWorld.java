@@ -21,6 +21,12 @@ public class HelloWorld {
                 ctx.result("Hello, World!\n");
             }
         });
+
+        app.get("/courses/{courseId}/lessons/{id}", ctx -> {
+            ctx.result("Course ID: " + ctx.pathParam("courseId"));
+            ctx.result("Lesson ID: " + ctx.pathParam("id"));
+        });
+
         app.start(7070);
     }
 }
