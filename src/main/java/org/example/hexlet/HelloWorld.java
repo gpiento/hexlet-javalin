@@ -1,14 +1,21 @@
 package org.example.hexlet;
 
 import io.javalin.Javalin;
+import io.javalin.rendering.template.JavalinJte;
+import org.example.hexlet.dto.courses.CoursePage;
+import org.example.hexlet.model.Course;
 
+import java.util.List;
 import java.util.Optional;
+
+import static io.javalin.rendering.template.TemplateUtil.model;
 
 public class HelloWorld {
     public static void main(String[] args) {
         // Создаем приложение
-        var app = Javalin.create(config -> {
+        Javalin app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
+            config.fileRenderer(new JavalinJte());
         });
         app.get("/", ctx -> ctx.result("Hello World"));
         app.get("/users", ctx -> ctx.result("GET /users"));
@@ -22,9 +29,22 @@ public class HelloWorld {
             }
         });
 
+/*
         app.get("/courses/{courseId}/lessons/{id}", ctx -> {
             ctx.result("Course ID: " + ctx.pathParam("courseId"));
             ctx.result("Lesson ID: " + ctx.pathParam("id"));
+        });
+*/
+        List<Course> courseList = List.of(
+                new Course("nameCourse1", "descriptionCourse1"),
+                new Course("nameCourse2", "descriptionCourse2"),
+                new Course("nameCourse3", "descriptionCourse3")
+        );
+        app.get("/courses/{id}", ctx -> {
+            String id = ctx.pathParam("id");
+            Course course = courseList.get(Integer.parseInt(id) - 1);
+            CoursePage page = new CoursePage(course);
+            ctx.render("courses/show.jte", model("page", page));
         });
 
         app.start(7070);
