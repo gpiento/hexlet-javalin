@@ -2,7 +2,9 @@ package org.example.hexlet;
 
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
+import io.javalin.validation.ValidationException;
 import org.example.hexlet.dto.courses.CoursePage;
+import org.example.hexlet.dto.users.BuildUserPage;
 import org.example.hexlet.model.Course;
 
 import java.util.List;
@@ -45,6 +47,24 @@ public class HelloWorld {
             Course course = courseList.get(Integer.parseInt(id) - 1);
             CoursePage page = new CoursePage(course);
             ctx.render("courses/show.jte", model("page", page));
+        });
+
+        app.post("/users", ctx -> {
+            var name = ctx.formParam("name");
+            var email = ctx.formParam("email");
+
+            try {
+                var passwordConfirmation = ctx.formParam("passwordConfirmation");
+                var password = ctx.formParamAsClass("password", String.class)
+                        .check(value -> value.equals(passwordConfirmation), "Пароли не совпадают")
+                        .get();
+                var user = new User(name, email, password);
+                UserRepository.save(user);
+                ctx.redirect("/users");
+            } catch (ValidationException e) {
+                var page = new BuildUserPage(name, email, e.getErrors());
+                ctx.render("users/build.jte", model("page", page));
+            }
         });
 
         app.start(7070);
